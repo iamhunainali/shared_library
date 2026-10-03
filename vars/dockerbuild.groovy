@@ -1,3 +1,5 @@
-def call(String app, String tag){
-  docker build -t "${app}":"${tag}"
+def call(String app, String tag) {
+    sh """
+        docker build -t ${app}:${tag} .
+    """
 }
