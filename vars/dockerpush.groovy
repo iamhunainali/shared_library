@@ -1,4 +1,4 @@
-def call(String DOCKERHUB_USERNAME, String DOCKERHUB_PASSWORD) {
+def call(String DOCKERHUB_USERNAME) {
     withCredentials([
         usernamePassword(
             credentialsId: 'dockerhub-credentials',
@@ -7,7 +7,6 @@ def call(String DOCKERHUB_USERNAME, String DOCKERHUB_PASSWORD) {
         )
     ]) {
         sh """
-            docker login -u ${DOCKERHUB_USERNAME} -p ${DOCKERHUB_PASSWORD}
             docker build -t ${DOCKERHUB_USERNAME}/django-notes-app .
             docker push ${DOCKERHUB_USERNAME}/django-notes-app
         """
