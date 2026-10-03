@@ -1,14 +1,15 @@
-def call(String DOCKERHUB_USERNAME) {
+def call(String imageName) {
     withCredentials([
         usernamePassword(
             credentialsId: 'dockerhub-credentials',
-            usernameVariable: DOCKERHUB_USERNAME,
-            passwordVariable: DOCKERHUB_PASSWORD
+            usernameVariable: 'DOCKERHUB_USERNAME',
+            passwordVariable: 'DOCKERHUB_PASSWORD'
         )
     ]) {
-        sh """
-            docker build -t ${DOCKERHUB_USERNAME}/django-notes-app .
-            docker push ${DOCKERHUB_USERNAME}/django-notes-app
-        """
+        sh '''
+            echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+            docker tag notes-app:latest "$DOCKERHUB_USERNAME/notes-app:latest"
+            docker push "$DOCKERHUB_USERNAME/notes-app:latest"
+        '''
     }
 }
