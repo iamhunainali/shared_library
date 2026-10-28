@@ -1,15 +1,14 @@
-def call(String imageName) {
-    withCredentials([
-        usernamePassword(
-            credentialsId: 'dockerhub-credentials',
-            usernameVariable: 'DOCKERHUB_USERNAME',
-            passwordVariable: 'DOCKERHUB_PASSWORD'
-        )
-    ]) {
-        sh '''
-            echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-            docker tag notes-app:latest "$DOCKERHUB_USERNAME/notes-app:latest"
-            docker push "$DOCKERHUB_USERNAME/notes-app:latest"
-        '''
-    }
+
+def call(String DH_TOKEN, String DH_USER, String BUILD_NUMBER) {
+    sh """
+        set -e
+
+        echo "\$DH_TOKEN" | docker login \
+            -u "\$DH_USER" --password-stdin
+
+        docker push "${DH_USER}/greenx-backend:${BUILD_NUMBER}"
+        docker push "${DH_USER}/greenx-frontend:${BUILD_NUMBER}"
+
+        docker logout
+    """
 }
