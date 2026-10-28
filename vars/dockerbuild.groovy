@@ -1,5 +1,6 @@
-def call(String app, String tag) {
+def call(String DH_USER, String BUILD_NUMBER) {
     sh """
-        docker build -t ${app}:${tag} .
+                docker build -t "$DH_USER/greenx-backend:$BUILD_NUMBER" ./GreenX_DCS_Assesment_Tool_Backend
+                docker build -t "$DH_USER/greenx-frontend:$BUILD_NUMBER" ./greenX-assessment-tool-frontend .
     """
 }
