@@ -3,14 +3,14 @@ def call(String REMOTE_HOST, String REMOTE_DIR, String BUILD_NUMBER, String STAC
     sh """
         set -e
 
-        ssh -o StrictHostKeyChecking=accept-new ${REMOTE_HOST} '
+        sudo ssh -o StrictHostKeyChecking=accept-new ${REMOTE_HOST} '
             set -e
-            cd ${REMOTE_DIR}
+            sudo cd ${REMOTE_DIR}
 
-            export DH_USER="${env.DH_USER}"
-            export BUILD_NUMBER="${BUILD_NUMBER}"
+            sudo export DH_USER="${env.DH_USER}"
+            sudo export BUILD_NUMBER="${BUILD_NUMBER}"
 
-            docker stack deploy \
+            sudo docker stack deploy \
                 --with-registry-auth \
                 -c docker-compose.yml \
                 ${STACK_NAME}
