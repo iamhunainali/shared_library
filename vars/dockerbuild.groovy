@@ -1,4 +1,4 @@
-```groovy
+
 def call(String DH_USER, String BUILD_NUMBER) {
     sh """
         set -e
@@ -8,4 +8,4 @@ def call(String DH_USER, String BUILD_NUMBER) {
         docker build --no-cache -t "${DH_USER}/greenx-app:frontend-${BUILD_NUMBER}" ./greenX-assessment-tool-frontend
     """
 }
-```
+
