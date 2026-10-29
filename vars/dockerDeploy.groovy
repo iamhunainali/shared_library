@@ -1,8 +1,17 @@
-
 def call(String REMOTE_HOST, String REMOTE_DIR, String BUILD_NUMBER, String STACK_NAME) {
     sh """
         set -e
 
+        echo "Creating remote deployment directory..."
+        ssh -o StrictHostKeyChecking=accept-new ${REMOTE_HOST} \
+            'mkdir -p ${REMOTE_DIR}'
+
+        echo "Copying project files to remote server..."
+        scp -r -o StrictHostKeyChecking=accept-new \
+            docker-compose.yml \
+            ${REMOTE_HOST}:${REMOTE_DIR}/
+
+        echo "Deploying Docker Swarm stack..."
         ssh -o StrictHostKeyChecking=accept-new ${REMOTE_HOST} '
             set -e
             cd ${REMOTE_DIR}
