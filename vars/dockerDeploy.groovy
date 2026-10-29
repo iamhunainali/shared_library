@@ -7,8 +7,8 @@ def call(String REMOTE_HOST, String REMOTE_DIR, String BUILD_NUMBER, String STAC
             'mkdir -p ${REMOTE_DIR}'
 
         echo "Copying project files to remote server..."
-        scp -r -o StrictHostKeyChecking=accept-new \
-            docker-compose.yml \
+        sudo scp -r -o StrictHostKeyChecking=accept-new \
+            ${PRO_DIR} \
             ${REMOTE_HOST}:${REMOTE_DIR}/
 
         echo "Deploying Docker Swarm stack..."
