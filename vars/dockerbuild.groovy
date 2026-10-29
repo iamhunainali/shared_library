@@ -4,9 +4,9 @@ def call(String DH_USER, String BUILD_NUMBER) {
         set -e
 
         docker build \
-            -t "${DH_USER}/greenx-backend:${BUILD_NUMBER}" ./GreenX_DCS_Assesment_Tool_Backend
+            -t "${DH_USER}/greenx-app:frontend" ./GreenX_DCS_Assesment_Tool_Backend
 
         docker build \
-            -t "${DH_USER}/greenx-frontend:${BUILD_NUMBER}" ./greenX-assessment-tool-frontend
+            -t "${DH_USER}/greenx-app:backend" ./greenX-assessment-tool-frontend
     """
 }
